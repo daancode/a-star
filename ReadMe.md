@@ -25,3 +25,6 @@ int main()
     }
 }
 ```
+#### Preview
+![](http://i.imgur.com/rqvrs6G.png)
+![](http://i.imgur.com/7ZH2A0d.png)
