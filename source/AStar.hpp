@@ -1,3 +1,8 @@
+/*
+    Copyright (c) 2015, Damian Barczynski <daan.net@wp.eu>
+    Following tool is licensed under the terms and conditions of the ISC license.
+    For more information visit https://opensource.org/licenses/ISC.
+*/
 #ifndef __ASTAR_HPP_8F637DB91972F6C878D41D63F7E7214F__
 #define __ASTAR_HPP_8F637DB91972F6C878D41D63F7E7214F__
 
