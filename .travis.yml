@@ -10,6 +10,6 @@ before_install:
 install:
 - sudo apt-get install -qq g++-4.8
 
-script: 
- - g++-4.8 -std=c++11 -Wall -Wextra -pedantic source/AStar.cpp main.cpp -o app 
+script:
+ - g++-4.8 -std=c++11 -Wall -Wextra -pedantic source/AStar.cpp main.cpp -o app
  - ./app
