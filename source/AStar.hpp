@@ -40,9 +40,10 @@ namespace AStar
         bool detectCollision(Vec2i coordinates_);
         Node* findNodeOnList(NodeSet& nodes_, Vec2i coordinates_);
         void releaseNodes(NodeSet& nodes_);
+        void verify(const Vec2i&) const;
 
     public:
-        Generator();
+        Generator() noexcept;
         void setWorldSize(Vec2i worldSize_);
         void setDiagonalMovement(bool enable_);
         void setHeuristic(HeuristicFunction heuristic_);
