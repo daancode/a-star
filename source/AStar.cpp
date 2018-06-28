@@ -72,7 +72,7 @@ void AStar::Generator::clearCollisions()
     walls.clear();
 }
 
-void AStar::Generator::verify(const Vec2i& v)
+void AStar::Generator::verify(const Vec2i& v) const
 { 
     if ((v.x < 0) || (v.x >= worldSize.x) || (v.y < 0) || (v.y >= worldSize.y))
     {
