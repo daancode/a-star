@@ -19,6 +19,14 @@ namespace AStar
         bool operator == (const Vec2i& coordinates_);
     };
 
+    enum class State
+    {
+        Ready,
+        InvalidArguments,
+        InternalError,
+        Success
+    };
+
     using uint = unsigned int;
     using HeuristicFunction = std::function<uint(Vec2i, Vec2i)>;
     using CoordinateList = std::vector<Vec2i>;
@@ -40,10 +48,12 @@ namespace AStar
         bool detectCollision(Vec2i coordinates_);
         Node* findNodeOnList(NodeSet& nodes_, Vec2i coordinates_);
         void releaseNodes(NodeSet& nodes_);
-        void verify(const Vec2i&) const;
+        void verify(const Vec2i&);
+        void setState(State);
 
     public:
         Generator() noexcept;
+        State getState() const;
         void setWorldSize(Vec2i worldSize_);
         void setDiagonalMovement(bool enable_);
         void setHeuristic(HeuristicFunction heuristic_);
@@ -57,6 +67,7 @@ namespace AStar
         CoordinateList direction, walls;
         Vec2i worldSize;
         uint directions;
+        State state_;
     };
 
     class Heuristic

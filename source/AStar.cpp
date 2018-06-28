@@ -25,7 +25,7 @@ AStar::uint AStar::Node::getScore()
     return G + H;
 }
 
-AStar::Generator::Generator() noexcept : heuristic{}, direction {}, walls{}, worldSize{ 0, 0 }, directions{ 0 }
+AStar::Generator::Generator() noexcept : heuristic{}, direction{}, walls{}, worldSize{ 0, 0 }, directions{ 0 }, state_{State::Ready}
 {
     setDiagonalMovement(false);
     setHeuristic(&Heuristic::manhattan);
@@ -33,6 +33,11 @@ AStar::Generator::Generator() noexcept : heuristic{}, direction {}, walls{}, wor
         { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 },
         { -1, -1 }, { 1, 1 }, { -1, 1 }, { 1, -1 }
     };
+}
+
+AStar::State AStar::Generator::getState() const
+{
+    return state_;
 }
 
 void AStar::Generator::setWorldSize(Vec2i worldSize_)
@@ -72,10 +77,18 @@ void AStar::Generator::clearCollisions()
     walls.clear();
 }
 
-void AStar::Generator::verify(const Vec2i& v) const
+void AStar::Generator::verify(const Vec2i& v)
 { 
-    if ((v.x < 0)||(v.x >= worldSize.x) || (v.y < 0) || (v.y >= worldSize.y))
-        throw std::out_of_range("Vec2i is out of range !");
+    if ((v.x < 0) || (v.x >= worldSize.x) || (v.y < 0) || (v.y >= worldSize.y))
+    {
+        setState(AStar::State::InvalidArguments);
+        //throw std::out_of_range("Vec2i is out of range !");
+    }
+}
+
+void AStar::Generator::setState(State state)
+{
+    state_ = state;
 }
 
 AStar::CoordinateList AStar::Generator::findPath(Vec2i source_, Vec2i target_)
