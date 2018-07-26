@@ -72,13 +72,19 @@ AStar::CoordinateList AStar::Generator::findPath(Vec2i source_, Vec2i target_)
 {
     Node *current = nullptr;
     NodeSet openSet, closedSet;
-    openSet.insert(new Node(source_));
+    openSet.reserve(100);
+    closedSet.reserve(100);
+    openSet.push_back(new Node(source_));
 
     while (!openSet.empty()) {
-        current = *openSet.begin();
-        for (auto node : openSet) {
+        auto current_it = openSet.begin();
+        current = *current_it;
+
+        for (auto it = openSet.begin(); it != openSet.end(); it++) {
+            auto node = *it;
             if (node->getScore() <= current->getScore()) {
                 current = node;
+                current_it = it;
             }
         }
 
@@ -86,8 +92,8 @@ AStar::CoordinateList AStar::Generator::findPath(Vec2i source_, Vec2i target_)
             break;
         }
 
-        closedSet.insert(current);
-        openSet.erase(std::find(openSet.begin(), openSet.end(), current));
+        closedSet.push_back(current);
+        openSet.erase(current_it);
 
         for (uint i = 0; i < directions; ++i) {
             Vec2i newCoordinates(current->coordinates + direction[i]);
@@ -103,7 +109,7 @@ AStar::CoordinateList AStar::Generator::findPath(Vec2i source_, Vec2i target_)
                 successor = new Node(newCoordinates, current);
                 successor->G = totalCost;
                 successor->H = heuristic(successor->coordinates, target_);
-                openSet.insert(successor);
+                openSet.push_back(successor);
             }
             else if (totalCost < successor->G) {
                 successor->parent = current;
