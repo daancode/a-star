@@ -1,7 +1,9 @@
-#include "AStar.hpp"
 #include <algorithm>
+#include <cmath>
+#include "a-star/AStar.hpp"
 
 using namespace std::placeholders;
+using namespace std;
 
 bool AStar::Vec2i::operator == (const Vec2i& coordinates_)
 {
