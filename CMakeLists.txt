@@ -3,7 +3,7 @@ project (a-star)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-option(BUILD_EXAMPLE "Build a-star example")
+option(BUILD_EXAMPLE "Build a-star example" OFF)
 add_library(a-star source/AStar.cpp)
 
 if(BUILD_EXAMPLE)
