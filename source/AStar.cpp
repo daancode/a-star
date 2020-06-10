@@ -1,5 +1,6 @@
 #include "AStar.hpp"
 #include <algorithm>
+#include <math.h> // Add by Omar-Alghanmi - because pow() function and sqrt() function that used at line 170
 
 using namespace std::placeholders;
 
