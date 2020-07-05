@@ -33,7 +33,7 @@ namespace AStar
         uint getScore();
     };
 
-    using NodeSet = std::set<Node*>;
+    using NodeSet = std::vector<Node*>;
 
     class Generator
     {
