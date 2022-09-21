@@ -50,6 +50,7 @@ namespace AStar
         void addCollision(Vec2i coordinates_);
         void removeCollision(Vec2i coordinates_);
         void clearCollisions();
+        void visualize(const CoordinateList& path);
 
     private:
         HeuristicFunction heuristic;
