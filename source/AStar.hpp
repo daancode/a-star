@@ -17,6 +17,9 @@ namespace AStar
         int x, y;
 
         bool operator == (const Vec2i& coordinates_);
+        friend Vec2i operator + (const AStar::Vec2i& left_, const AStar::Vec2i& right_) {
+            return{ left_.x + right_.x, left_.y + right_.y };
+        }
     };
 
     using uint = unsigned int;

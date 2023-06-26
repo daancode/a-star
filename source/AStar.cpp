@@ -9,11 +9,6 @@ bool AStar::Vec2i::operator == (const Vec2i& coordinates_)
     return (x == coordinates_.x && y == coordinates_.y);
 }
 
-AStar::Vec2i operator + (const AStar::Vec2i& left_, const AStar::Vec2i& right_)
-{
-    return{ left_.x + right_.x, left_.y + right_.y };
-}
-
 AStar::Node::Node(Vec2i coordinates_, Node *parent_)
 {
     parent = parent_;
