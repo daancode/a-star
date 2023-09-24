@@ -154,6 +154,45 @@ bool AStar::Generator::detectCollision(Vec2i coordinates_)
     return false;
 }
 
+void AStar::Generator::visualize(const CoordinateList& path)
+{
+    char **vis = new char*[worldSize.y];
+    for (uint i = 0; i < worldSize.y; ++i) {
+        vis[i] = new char[worldSize.x];
+    }
+
+    for (uint i = 0; i < worldSize.y; ++i) {
+        for (uint j = 0; j < worldSize.x; ++j) {
+            vis[i][j] = '+';
+        }
+    }
+
+    for (auto it = walls.begin(); it != walls.end(); ++it) {
+        vis[(*it).y][(*it).x] = 'X';
+    }
+
+    for (auto it = path.begin(); it != path.end(); ++it) {
+        if (path.begin() == it)
+            vis[(*it).y][(*it).x] = 'E';
+        else if (path.end() == next(it))
+            vis[(*it).y][(*it).x] = 'S';
+        else
+            vis[(*it).y][(*it).x] = 'O';
+    }
+
+    for (uint i = 0; i < worldSize.y; ++i) {
+        for (uint j = 0; j < worldSize.x; ++j) {
+            printf("%c ", vis[i][j]);
+        }
+        printf("\n");
+    }
+
+    for (uint i = 0; i < worldSize.y; ++i) {
+        delete[] vis[i];
+    }
+    delete[] vis;
+}
+
 AStar::Vec2i AStar::Heuristic::getDelta(Vec2i source_, Vec2i target_)
 {
     return{ abs(source_.x - target_.x),  abs(source_.y - target_.y) };

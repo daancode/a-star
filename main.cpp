@@ -14,4 +14,5 @@ int main()
     for(auto& coordinate : path) {
         std::cout << coordinate.x << " " << coordinate.y << "\n";
     }
+    generator.visualize(path);
 }
