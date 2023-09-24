@@ -21,7 +21,7 @@ AStar::uint AStar::Node::getScore()
     return G + H;
 }
 
-AStar::Generator::Generator()
+AStar::Generator::Generator() noexcept : heuristic{}, direction{}, walls{}, worldSize{ 0, 0 }, directions{ 0 }
 {
     setDiagonalMovement(false);
     setHeuristic(&Heuristic::manhattan);
@@ -48,11 +48,15 @@ void AStar::Generator::setHeuristic(HeuristicFunction heuristic_)
 
 void AStar::Generator::addCollision(Vec2i coordinates_)
 {
+    verify(coordinates_);
+
     walls.push_back(coordinates_);
 }
 
 void AStar::Generator::removeCollision(Vec2i coordinates_)
 {
+    verify(coordinates_);
+
     auto it = std::find(walls.begin(), walls.end(), coordinates_);
     if (it != walls.end()) {
         walls.erase(it);
@@ -64,8 +68,18 @@ void AStar::Generator::clearCollisions()
     walls.clear();
 }
 
+void AStar::Generator::verify(const Vec2i& v) const
+{ 
+    if ((v.x < 0) || (v.x >= worldSize.x) || (v.y < 0) || (v.y >= worldSize.y))
+    {
+        throw std::out_of_range("Vec2i is out of range !");
+    }
+}
+
 AStar::CoordinateList AStar::Generator::findPath(Vec2i source_, Vec2i target_)
 {
+    verify(source_); verify(target_);
+
     Node *current = nullptr;
     NodeSet openSet, closedSet;
     openSet.reserve(100);

@@ -11,7 +11,7 @@ int main()
 {
     AStar::Generator generator;
     // Set 2d map size.
-    generator.setWorldSize({25, 25});
+    generator.setWorldSize({25, 25}); // World is between {0, 0} and {24, 24}
     // You can use a few heuristics : manhattan, euclidean or octagonal.
     generator.setHeuristic(AStar::Heuristic::euclidean);
     generator.setDiagonalMovement(true);
